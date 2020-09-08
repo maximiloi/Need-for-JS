@@ -1,0 +1,12 @@
+body {
+  background: grey;
+}
+.hide {
+  display: none;
+  cursor: pointer;
+}
+.car {
+  width: 50px;
+  height: 100px;
+  background: transparent url("/image/car.png") 50% 50% / cover no-repeat;
+}
