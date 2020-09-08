@@ -18,10 +18,6 @@ const setting = { // коллекция настроек игры
   speed: 3
 }
 
-start.addEventListener('click', startGame); // прослушиваем элемент, и по клику запускаем функцию startGame
-document.addEventListener('keydown', startRun); // прослушиваем весь документ на нажатия клавиш
-document.addEventListener('keyup', stopRun); // прослушиваем весь документ на поднятия пальца с клавиш
-
 function startGame() {  //создаем функцию для запуска игры
   start.classList.add('hide'); // прячем надпись приглашение
   setting.start = true; // изменяем значение для старта игры
@@ -46,3 +42,7 @@ function stopRun(event) { // функция конца движения
   event.preventDefault(); // отключаем стандартное поведение браузера
   keys[event.key] = false; // присваиваем значение FALSE отжатой клавишы, что бы авто начало изменять положение.
 }
+
+start.addEventListener('click', startGame); // прослушиваем элемент, и по клику запускаем функцию startGame
+document.addEventListener('keydown', startRun); // прослушиваем весь документ на нажатия клавиш
+document.addEventListener('keyup', stopRun); // прослушиваем весь документ на поднятия пальца с клавиш
