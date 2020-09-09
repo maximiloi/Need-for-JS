@@ -19,13 +19,14 @@ const setting = { // коллекция настроек игры
   traffic: 3
 }
 
-function getQuantityElements(heightElement) {
+function getQuantityElements(heightElement) { // Расчитываем кол-во элементов на дорогу изходя из их высоты
   return document.documentElement.clientHeight / heightElement + 1;
 }
 
 function startGame() {  //создаем функцию для запуска игры
   start.classList.add('hide'); // прячем надпись приглашение
-  for (let i = 0; i < getQuantityElements(100); i++) {
+
+  for (let i = 0; i < getQuantityElements(100); i++) { // Добавляем элемент Линии на дорогу
     const line = document.createElement('div');
     line.classList.add('line');
     line.style.top = (i * 100) + 'px';
@@ -33,7 +34,7 @@ function startGame() {  //создаем функцию для запуска и
     gameArea.appendChild(line);
   }
 
-  for (let i = 1; i < getQuantityElements(100 * setting.traffic); i++) {
+  for (let i = 1; i < getQuantityElements(100 * setting.traffic); i++) { // Добавляем Элемент врагов на дорогу
     const enemy = document.createElement('div');
     enemy.classList.add('enemy');
     enemy.y = -100 * setting.traffic * i;
@@ -53,8 +54,8 @@ function startGame() {  //создаем функцию для запуска и
 function playGame() { // функция движения игры
 
   if (setting.start) { // проверяем значение старта игры TRUE или FALSE для запуска движения если значение TRUE
-    moveRoad();
-    moveEnemy();
+    moveRoad(); // добавляем функцию отрисовки дорог
+    moveEnemy(); // добавляем авто врагов
 
     if (keys.ArrowLeft && setting.x > 0) { // Проверяем если нажата стрелочка влево то отнимаем координаты, и двигаем машину влево
       setting.x -= setting.speed; // кол-во отниманимаемы пикселей зависит от значения SPEED
@@ -89,27 +90,27 @@ function stopRun(event) { // функция конца движения
   keys[event.key] = false; // присваиваем значение FALSE отжатой клавишы, что бы авто начало изменять положение.
 }
 
-function moveRoad() {
-  let lines = document.querySelectorAll('.line');
-  lines.forEach(function (line) {
-    line.y += setting.speed;
-    line.style.top = line.y + 'px';
+function moveRoad() { // Анимируем дорогу, добавляем линии
+  let lines = document.querySelectorAll('.line'); // Ищем все элементы линии в на дорогу
+  lines.forEach(function (line) { // Перебираем все элементы
+    line.y += setting.speed; // добавляем скорость движения линииям
+    line.style.top = line.y + 'px'; // меняем расположение по вертикали
 
-    if (line.y >= document.documentElement.clientHeight) {
+    if (line.y >= document.documentElement.clientHeight) { // убираем элементы за вверхний край дороги
       line.y = -100;
     }
   });
 }
 
-function moveEnemy() {
+function moveEnemy() { // Анимируем врагов
   let enemys = document.querySelectorAll('.enemy');
   enemys.forEach(function (enemy) {
-    enemy.y += setting.speed / 1.5;
+    enemy.y += setting.speed / 1.5; // меняем скорость что бы не казалось что они стоят на месте
     enemy.style.top = enemy.y + 'px';
 
     if (enemy.y >= document.documentElement.clientHeight) {
       enemy.y = -100 * setting.traffic;
-      enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
+      enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px'; // добавляем RND для расстановки авто по горизонтали
     }
   });
 }
