@@ -16,7 +16,8 @@ const setting = { // коллекция настроек игры
   start: false,
   score: 0,
   speed: 6,
-  traffic: 3
+  traffic: 3,
+  //level: 1
 }
 
 const enemyBackground = [ // колекция скинов для машин enemy 
@@ -54,8 +55,8 @@ function startGame() {  //создаем функцию для запуска и
     enemy.style.top = enemy.y + 'px';
     enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
 
-    let count = randomNumber(0, enemyBackground.length - 1); // Генерация случайных скинов для машин
-    enemy.style.background = 'transparent url("./image/' + enemyBackground[count] + '") 50% 50% / cover no-repeat';
+    // let count = randomNumber(0, enemyBackground.length - 1); // Генерация случайных скинов для машин
+    // enemy.style.background = 'transparent url("./image/' + enemyBackground[count] + '") 50% 50% / cover no-repeat';
     gameArea.appendChild(enemy);
   }
 
@@ -142,6 +143,8 @@ function moveEnemy() { // Анимируем врагов
       carRect.bottom >= enemyRect.top) {
       setting.start = false;
       start.classList.remove('hide');
+
+      saveScore();
     }
     enemy.y += setting.speed / 1.5; // меняем скорость что бы не казалось что они стоят на месте
     enemy.style.top = enemy.y + 'px';
@@ -149,9 +152,18 @@ function moveEnemy() { // Анимируем врагов
     if (enemy.y >= document.documentElement.clientHeight) {
       enemy.y = -100 * setting.traffic;
       enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px'; // добавляем RND для расстановки авто по горизонтали
+      let count = randomNumber(0, enemyBackground.length - 1); // Генерация случайных скинов для машин
+      enemy.style.background = 'transparent url("./image/' + enemyBackground[count] + '") 50% 50% / cover no-repeat';
     }
   });
 }
+
+function saveScore() {
+  console.log(setting.score);
+  let name = prompt(`Вы набрали ${setting.score} очков, оставьте Ваше имя`);
+  localStorage.setItem(setting.score, name);
+}
+// 
 
 start.addEventListener('click', startGame); // прослушиваем элемент, и по клику запускаем функцию startGame
 document.addEventListener('keydown', startRun); // прослушиваем весь документ на нажатия клавиш

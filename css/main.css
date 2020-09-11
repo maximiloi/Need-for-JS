@@ -61,3 +61,14 @@ body {
   text-align: center;
   z-index: 10;
 }
+
+.result__title {
+  width: 260px;
+  padding: 20px;
+  left: calc(50% - 150px);
+  font-size: 1.2rem;
+  color: #fca311;
+  font-family: sans-serif;
+  background: #14213d;
+  text-align: center;
+}
